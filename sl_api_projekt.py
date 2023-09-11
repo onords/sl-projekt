@@ -16,7 +16,7 @@ from tkinter import *
 import json
 from datetime import datetime
 import sys
-software_version = "v1.0"
+software_version = "v1.1"
 
 my_key_plats = "af4e79dc1e6e4edea4c7de081f32f259"    # Platsuppslag
 my_key_real_time = "7c6e6911b6484549a3211fb2c1a1c426"   # Realtidsinformation
