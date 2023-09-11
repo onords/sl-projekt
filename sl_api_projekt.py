@@ -77,23 +77,23 @@ class DeparturesRESTAPI():
 window = DeparturesRESTAPI()
 
 app = Tk()
-app.geometry("710x480+600+300")                         # width x height + x + y position of top left corner
+app.geometry("990x550+600+300")                         # width x height + x + y position of top left corner
 app.title(f"Kollektivtrafiken i hallen {software_version}")
 app.resizable(False, False)
 app.config(background="#293241")
 
 # Add frames
 
-frame1 = Frame(app, height=120, width=720, bg="lightblue", bd=1, relief=FLAT)  # FLAT/RAISED/SUNKEN/GROOVE/RIDGE
+frame1 = Frame(app, height=120, width=990, bg="lightblue", bd=1, relief=FLAT)  # FLAT/RAISED/SUNKEN/GROOVE/RIDGE
 frame1.place(x=0,y=0)
-frame2 = Frame(app, height=330, width=240, bg="#293242", bd=1, relief=FLAT)
+frame2 = Frame(app, height=330, width=330, bg="#293242", bd=1, relief=FLAT)
 frame2.place(x=0, y=150)
-frame3 = Frame(app, height=30, width=720, bg="black", bd=1, relief=FLAT)
+frame3 = Frame(app, height=30, width=990, bg="black", bd=1, relief=FLAT)
 frame3.place(x=0, y=120)
-frame4 = Frame(app, height=330, width=240, bg="#293242", bd=1, relief=FLAT)
-frame4.place(x=240, y=150)
-frame5 = Frame(app, height=330, width=240, bg="#293242", bd=1, relief=FLAT) #293242
-frame5.place(x=480, y=150)
+frame4 = Frame(app, height=330, width=330, bg="#293242", bd=1, relief=FLAT)
+frame4.place(x=330, y=150)
+frame5 = Frame(app, height=330, width=330, bg="#293242", bd=1, relief=FLAT) #293242
+frame5.place(x=660, y=150)
 
 
 # Labels
@@ -101,21 +101,21 @@ frame5.place(x=480, y=150)
 label_time = Label(text="Current Time", bg="lightblue", font="verdana 12 bold")
 label_time.place(x=30, y=30)
 
-label_time_input = Label(text=datetime.now().strftime("%Y-%m-%d %H:%M:%S"), bg="lightblue", font="verdana 12")
+label_time_input = Label(text=datetime.now().strftime("%Y-%m-%d %H:%M:%S"), bg="lightblue", font="verdana 17")
 label_time_input.place(x=30, y=50)
 
 # Texts
 
-text_karrtorp = Text(frame2, height=20, width=25, bg="#293242", fg="white", relief=FLAT, font="verdana 10")
+text_karrtorp = Text(frame2, height=20, width=25, bg="#293242", fg="white", relief=FLAT, font="verdana 17")
 text_karrtorp.place(x=0, y=0)
 text_karrtorp.insert("1.0", window.real_time_info["kärrtorp"])
 
-text_karrtorpsvagen = Text(frame4, height=20, width=25, bg="#293242", fg="white", relief=FLAT, font="verdana 10")
+text_karrtorpsvagen = Text(frame4, height=20, width=25, bg="#293242", fg="white", relief=FLAT, font="verdana 17")
 text_karrtorpsvagen.place(x=0, y=0)
 text_karrtorpsvagen.insert("1.0", window.real_time_info["kärrtorpsvägen"])
 print(window.real_time_info["kärrtorpsvägen"])
 
-text_de_gamlas_vag = Text(frame5, height=20, width=25, bg="#293242", fg="white", relief=FLAT, font="verdana 10")
+text_de_gamlas_vag = Text(frame5, height=20, width=25, bg="#293242", fg="white", relief=FLAT, font="verdana 17")
 text_de_gamlas_vag.place(x=0, y=0)
 text_de_gamlas_vag.insert("1.0", window.real_time_info["de gamlas väg"])
 print(window.real_time_info["de gamlas väg"])
