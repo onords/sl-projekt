@@ -5,7 +5,7 @@ This project creates a display for your own use to show public transport departu
 
 To run this project you need to use your own public API keys from https://trafiklab.se and the "SL Departures v4.0" and "SL Stop Lookup v1.0".
 
-Store these API keys in a json file at same folder as the project with the format:
+Store these API keys in "api_config.json" file at same folder as the project with the format:
 
 {
 
