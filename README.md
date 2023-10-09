@@ -14,7 +14,7 @@ Store these API keys in a json file at same folder as the project with the forma
     "API_REAL_TIME":"<YourKeyFromSLDepartures>"
 }
 
-# Software version: 1.2
+Software version: 1.2
 
 # Limitations and upcoming upgrades
 
