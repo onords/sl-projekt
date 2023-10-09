@@ -16,21 +16,41 @@ from tkinter import *
 import json
 from datetime import datetime
 import sys
-software_version = "v1.1"
+software_version = "v1.2"
 
-my_key_plats = "af4e79dc1e6e4edea4c7de081f32f259"    # Platsuppslag
-my_key_real_time = "7c6e6911b6484549a3211fb2c1a1c426"   # Realtidsinformation
+# Open a local config file with API your SL API Keys
+# Get your personal API keys from trafiklab.se
+# To lookup stations use this link for API key: https://www.trafiklab.se/sv/api/trafiklab-apis/sl/stop-lookup/
+# To lookup realtime data use this link for API key: https://www.trafiklab.se/sv/api/trafiklab-apis/sl/departures-4/
+with open("./api_config.json") as f:
+    api_dict = json.load(f)
+
+# Store the API keys from config json file
+my_key_plats = api_dict["API_PLACE"]
+my_key_real_time = api_dict["API_REAL_TIME"]
+
+# Input the stations and station number that you want to display, currently GUI support 3 stations
 stations = {
     "kärrtorp": "9142",
     "kärrtorpsvägen": "1570",
     "de gamlas väg": "1572"
 }
-# search_string = "De gamlas väg"                # "kärrtorp"
-# response = requests.get(f"https://api.sl.se/api2/typeahead.json?key={my_key_plats}&searchstring={search_string}]&stationsonly=True&maxresults50")
+# Kista 9302
+# Input the station name that you want to find the station ID number for. Each bus/metro/.. stop has its own site number
+# Check the print to find your station, use the query multiple time until you have found all stops you want to find
+search_string = "Kista"                # "kärrtorp"
+
+#
+response = requests.get(f"https://api.sl.se/api2/typeahead.json?key={my_key_plats}&searchstring={search_string}]&stationsonly=True&maxresults50")
                      # since the content was in application/json, we can show the json format
+
+# Indent print for easier readability
+print(response.json())
+print(json.dumps(response.json(), indent=4))
 class DeparturesRESTAPI():
     """
     Class that handles REST API query and parses json data
+    time_window is the time that you want to find departures from now
     """
     def __init__(self):
         self.stations = stations
@@ -56,11 +76,14 @@ class DeparturesRESTAPI():
         """
         for key, value in self.stations.items():
             json_data = self.get_sl_info(value)
+            # Replace "kärrtorp" with the metro station of your choice, for multiple metro stations add more elif statements
             if key == "kärrtorp":
                 transport_method = "Metros"
+                # Replace with Metro from
                 out_string = "Tunnelbana från " + key
             else:
                 transport_method = "Buses"
+                # Replace with Bus from for english
                 out_string = "Buss från " + key
             loops = len(json_data["ResponseData"][transport_method])
             for i in range(0, loops):
@@ -74,12 +97,18 @@ class DeparturesRESTAPI():
                 print(self.real_time_info[keys])
 
 
+# Instantiate the class
 window = DeparturesRESTAPI()
 
+# Creates the window to display station departures with Tkinter
+
 app = Tk()
+# Adapt geometry to the size of your display
 app.geometry("990x550+600+300")                         # width x height + x + y position of top left corner
 app.title(f"Kollektivtrafiken i hallen {software_version}")
+# Disable window resize, set to True if you want to manually change window size
 app.resizable(False, False)
+# Window colour background
 app.config(background="#293241")
 
 # Add frames
@@ -96,16 +125,16 @@ frame5 = Frame(app, height=330, width=330, bg="#293242", bd=1, relief=FLAT) #293
 frame5.place(x=660, y=150)
 
 
-# Labels
-
+# Add Tkinter Labels to display text or numbers to Display
+# Add Current Time text
 label_time = Label(text="Current Time", bg="lightblue", font="verdana 12 bold")
 label_time.place(x=30, y=30)
-
+# Add time in numbers
 label_time_input = Label(text=datetime.now().strftime("%Y-%m-%d %H:%M:%S"), bg="lightblue", font="verdana 17")
 label_time_input.place(x=30, y=50)
 
 # Texts
-
+# Add textboxes with station info
 text_karrtorp = Text(frame2, height=20, width=25, bg="#293242", fg="white", relief=FLAT, font="verdana 17")
 text_karrtorp.place(x=0, y=0)
 text_karrtorp.insert("1.0", window.real_time_info["kärrtorp"])
@@ -121,17 +150,20 @@ text_de_gamlas_vag.insert("1.0", window.real_time_info["de gamlas väg"])
 print(window.real_time_info["de gamlas väg"])
 
 
+# Continuously update clock every second
 def update_clock():
     label_time_input.config(text=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     label_time_input.after(1000, update_clock)
 
 
-
+# Clear the text in station text boxes
 def clear_text():
     text_karrtorp.delete("1.0", END)
     text_karrtorpsvagen.delete("1.0", END)
     text_de_gamlas_vag.delete("1.0", END)
 
+
+# Updates the station info every 90s
 def update_real_time():
     if window.DEBUG:
         print("Nya avgångar")
@@ -141,7 +173,6 @@ def update_real_time():
     text_karrtorpsvagen.insert("1.0", window.real_time_info["kärrtorpsvägen"])
     text_de_gamlas_vag.insert("1.0", window.real_time_info["de gamlas väg"])
     app.after(90000, update_real_time)
-
 
 
 update_clock()

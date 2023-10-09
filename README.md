@@ -1,6 +1,24 @@
 # sl-projekt
-En SL tidtabell på en rpi skärm
+A SL (Stockholms Lokaltrafik) Display project (Stockholm Public Transport)
 
-Koden använder projektets API nyckel för att göra query för att hitta stationsnummret på en station med en söksträng ex: kärrtorp
+This project creates a display for your own use to show public transport departures from stations of your own choosing
 
-Med bestämda stationsnummer kan man sedan be avgångsinformation från stationen, upp till tre stycken fungerar samtidigt i GUI.
+To run this project you need to use your own public API keys from https://trafiklab.se and the "SL Departures v4.0" and "SL Stop Lookup v1.0".
+
+Store these API keys in a json file at same folder as the project with the format:
+
+{
+
+    "API_PLACE":"<YourKeyfromStopLookUp>,
+
+    "API_REAL_TIME":"<YourKeyFromSLDepartures>"
+}
+
+# Limitations and upcoming upgrades
+
+Currently hard coded to 3 stops. The aim for future design is have variable stations on the display
+
+
+
+# Author
+Oskar Nordström
