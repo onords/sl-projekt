@@ -14,6 +14,8 @@ Store these API keys in a json file at same folder as the project with the forma
     "API_REAL_TIME":"<YourKeyFromSLDepartures>"
 }
 
+# Software version: 1.2
+
 # Limitations and upcoming upgrades
 
 Currently hard coded to 3 stops. The aim for future design is have variable stations on the display
