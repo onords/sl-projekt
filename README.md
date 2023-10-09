@@ -7,12 +7,12 @@ To run this project you need to use your own public API keys from https://trafik
 
 Store these API keys in "api_config.json" file at same folder as the project with the format:
 
-{
+    {
 
     "API_PLACE":"<YourKeyfromStopLookUp>,
 
     "API_REAL_TIME":"<YourKeyFromSLDepartures>"
-}
+    }
 
 Software version: 1.2
 
