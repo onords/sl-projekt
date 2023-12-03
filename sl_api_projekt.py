@@ -79,11 +79,11 @@ class DeparturesRESTAPI():
             # Replace "kärrtorp" with the metro station of your choice, for multiple metro stations add more elif statements
             if key == "kärrtorp":
                 transport_method = "Metros"
-                # Replace with Metro from
+                # Replace with "Metro from" for english
                 out_string = "Tunnelbana från " + key
             else:
                 transport_method = "Buses"
-                # Replace with Bus from for english
+                # Replace with "Bus from" for english
                 out_string = "Buss från " + key
             loops = len(json_data["ResponseData"][transport_method])
             for i in range(0, loops):
